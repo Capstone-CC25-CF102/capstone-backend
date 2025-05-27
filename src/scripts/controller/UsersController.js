@@ -3,30 +3,30 @@ import bcrypt from 'bcrypt';
 import JWT from 'jsonwebtoken';
 
 export const getUsers = async (req, res) => {
-    try {
-        const users = await Users.findAll();
-        res.json(users);
-    } catch (error) {
-        console.error('Error fetching users:', error);
-    }
+  try {
+    const users = await Users.findAll();
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
 }
 
 export const Register = async (req, res) => {
-    const { name, email, password, confpassword } = req.body;
-    if (password !== confpassword) return res.status(400).json({ msg: "Password dan Confirm Password tidak sama!" });
-    const salt = await bcrypt.genSalt();
-    const hashPassword = await bcrypt.hash(password, salt);
-    try {
-        await Users.create({
-            name: name,
-            email: email,
-            password: hashPassword
-        });
-        res.status(201).json({ msg: "Register Berhasil!" });
-    } catch (error) {
-        console.error('Error creating user:', error);
-        res.status(500).json({ msg: "Internal server error" });
-    }
+  const { name, email, password, confpassword } = req.body;
+  if (password !== confpassword) return res.status(400).json({ msg: "Password dan Confirm Password tidak sama!" });
+  const salt = await bcrypt.genSalt();
+  const hashPassword = await bcrypt.hash(password, salt);
+  try {
+    await Users.create({
+      name: name,
+      email: email,
+      password: hashPassword
+    });
+    res.status(201).json({ msg: "Register Berhasil!" });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).json({ msg: "Internal server error" });
+  }
 }
 
 export const Login = async (req, res) => {
@@ -68,12 +68,15 @@ export const Login = async (req, res) => {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
-      secure: false, // Ganti ke true di produksi dengan HTTPS
+      secure: false,
       sameSite: "Lax",
-      path: "/", // Pastikan cookie tersedia untuk semua path
+      path: "/",
     });
-    console.log("Set-Cookie header:", refreshToken); // Debugging
-    return res.json({ accessToken });
+    console.log("Set-Cookie header:", refreshToken);
+    return res.json({
+      accessToken,
+      user: { name, email }
+    });
   } catch (error) {
     console.error("Login error:", error);
     return res.status(500).json({ msg: "Internal server error" });
@@ -81,20 +84,20 @@ export const Login = async (req, res) => {
 };
 
 export const Logout = async (req, res) => {
-    const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken) return res.sendStatus(204);
-    const user = await Users.findAll({
-        where: {
-            refresh_token: refreshToken
-        }
-    });
-    if (!user[0]) return res.sendStatus(204);
-    const userId = user[0].id;
-    await Users.update({ refresh_token: null }, {
-        where: {
-            id: userId
-        }
-    });
-    res.clearCookie('refreshToken');
-    return res.sendStatus(200);
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) return res.sendStatus(204);
+  const user = await Users.findAll({
+    where: {
+      refresh_token: refreshToken
+    }
+  });
+  if (!user[0]) return res.sendStatus(204);
+  const userId = user[0].id;
+  await Users.update({ refresh_token: null }, {
+    where: {
+      id: userId
+    }
+  });
+  res.clearCookie('refreshToken');
+  return res.sendStatus(200);
 }

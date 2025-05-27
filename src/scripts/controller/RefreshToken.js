@@ -4,7 +4,7 @@ import JWT from 'jsonwebtoken';
 export const RefreshToken = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
-    console.log("Received refresh token:", refreshToken); // Debugging
+    console.log("Received refresh token:", refreshToken); 
     if (!refreshToken) {
       return res.status(401).json({ error: "No refresh token provided" });
     }
@@ -28,7 +28,10 @@ export const RefreshToken = async (req, res) => {
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "15m" }
       );
-      return res.json({ accessToken });
+      res.json({
+        accessToken,
+        user: { name, email }
+      });
     });
   } catch (error) {
     console.error("Refresh token error:", error);
