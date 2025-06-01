@@ -1,6 +1,7 @@
 import express from 'express';
 import db from './config/database.js';
 import Users from './models/UserModel.js';
+import Places from './models/PlaceModel.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import router from './router/router.js';
@@ -14,6 +15,7 @@ try {
   await db.authenticate();
   console.log('Database connected successfully.');
   await Users.sync();
+  await Places.sync();
 } catch (error) {
   console.error('Unable to connect to the database:', error);
 }
