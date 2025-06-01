@@ -41,7 +41,14 @@ const Places = db.define(
     province: {
         type: DataTypes.TEXT,
         allowNull: true,
-    }
+    },
+    gambar: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      validate: {
+        isUrl: { msg: 'Image must be a valid URL' }, 
+      },
+    },
   },
   {
     freezeTableName: true, 
