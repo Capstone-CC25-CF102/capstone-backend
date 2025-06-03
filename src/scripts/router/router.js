@@ -15,3 +15,5 @@ router.get('/places', getPlaces);
 router.get('/places/:id', getPlaceById);
 
 export default router;
+
+
