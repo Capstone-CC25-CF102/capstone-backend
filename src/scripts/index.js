@@ -35,7 +35,20 @@ if (fs.existsSync(gambarPath)) {
 // Cek file spesifik
 const specificFile = path.join(__dirname, 'gambar', 'Alas-Purwo-National-Park.jpg');
 console.log('Specific file exists:', fs.existsSync(specificFile));
-
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:4173', 
+];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
 try {
   await db.authenticate();
   console.log('Database connected successfully.');
@@ -47,12 +60,13 @@ try {
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: '*',
     credentials: true,
   })
 );
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors(corsOptions));
 
 app.use('/gambar', (req, res, next) => {
   console.log('Static file requested:', req.url);
