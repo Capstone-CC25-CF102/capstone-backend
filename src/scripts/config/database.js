@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+import pg from 'pg';
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -11,6 +12,7 @@ console.log("Environment variables:", {
   DB_HOST: process.env.DB_HOST,
   DB_PORT: process.env.DB_PORT,
   DB_DIALECT: process.env.DB_DIALECT,
+  dialectModule: pg
 });
 
 const db = new Sequelize(
