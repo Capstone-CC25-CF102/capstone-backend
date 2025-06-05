@@ -19,7 +19,7 @@ export const getUserWishlist = async (req, res) => {
 
     const formatted = wishlists.map((item) => ({
       ...item.place.toJSON(),
-      gambar: item.place.gambar ? `http://localhost:5000/gambar/${item.place.gambar}` : null
+      gambar: item.place.gambar ? `https://capstone-backend-nvhm.vercel.app/gambar/${item.place.gambar}` : null
     }));
 
     res.json(formatted);
