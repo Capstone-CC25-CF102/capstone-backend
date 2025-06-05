@@ -58,12 +58,7 @@ try {
   console.error('Unable to connect to the database:', error);
 }
 
-app.use(
-  cors({
-    origin: '*',
-    credentials: true,
-  })
-);
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors(corsOptions));

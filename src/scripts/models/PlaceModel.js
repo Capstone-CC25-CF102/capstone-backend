@@ -23,13 +23,6 @@ const Places = db.define(
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    // image: {
-    //   type: DataTypes.STRING(255),
-    //   allowNull: true,
-    //   validate: {
-    //     isUrl: { msg: 'Image must be a valid URL' }, 
-    //   },
-    // },
     rating: {
       type: DataTypes.TEXT,
         allowNull: true,

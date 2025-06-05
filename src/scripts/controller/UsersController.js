@@ -1,11 +1,13 @@
 import Users from "../models/UserModel.js";
 import bcrypt from 'bcrypt';
 import JWT from 'jsonwebtoken';
+import Wishlist from "../models/WishlistModel.js";
 
 export const getUsers = async (req, res) => {
   try {
     const users = await Users.findAll();
     res.json(users);
+    res.json(Wishlist)
   } catch (error) {
     console.error('Error fetching users:', error);
   }

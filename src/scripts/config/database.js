@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Log variabel lingkungan untuk debugging
 console.log("Environment variables:", {
   DB_NAME: process.env.DB_NAME,
   DB_USER: process.env.DB_USER,
@@ -25,21 +24,21 @@ const db = new Sequelize(
     dialect: process.env.DB_DIALECT,
     dialectOptions: {
       ssl: {
-        require: true, // Supabase memerlukan SSL
-        rejectUnauthorized: false, // Nonaktifkan verifikasi sertifikat
+        require: true,
+        rejectUnauthorized: false,
       },
     },
     pool: {
-      max: 5, // Maksimum koneksi
+      max: 5,
       min: 0,
       acquire: 30000,
       idle: 10000,
     },
-    logging: (msg) => console.log("Sequelize:", msg), // Aktifkan logging untuk debugging
+    logging: (msg) => console.log("Sequelize:", msg),
   }
 );
 
-// Test koneksi
+
 (async () => {
   try {
     await db.authenticate();
