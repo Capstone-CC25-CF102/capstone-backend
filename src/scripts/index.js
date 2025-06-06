@@ -12,8 +12,6 @@ import fs from 'fs';
 
 dotenv.config();
 
-
-
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -35,20 +33,12 @@ if (fs.existsSync(gambarPath)) {
 // Cek file spesifik
 const specificFile = path.join(__dirname, 'gambar', 'Alas-Purwo-National-Park.jpg');
 console.log('Specific file exists:', fs.existsSync(specificFile));
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:4173', 
-];
+
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true, // Mengizinkan semua origin
   credentials: true,
 };
+
 try {
   await db.authenticate();
   console.log('Database connected successfully.');
@@ -57,7 +47,6 @@ try {
 } catch (error) {
   console.error('Unable to connect to the database:', error);
 }
-
 
 app.use(cookieParser());
 app.use(express.json());
