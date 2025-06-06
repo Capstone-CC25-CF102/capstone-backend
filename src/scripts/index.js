@@ -49,7 +49,7 @@ app.use(cors({
     'http://localhost:5173'
   ],
   credentials: true, 
-  methods: ['GET', 'POST', 'OPTIONS'],
+  methods: ['GET', 'POST', 'DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
