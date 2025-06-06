@@ -44,7 +44,10 @@ try {
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
-  origin: 'https://capstone-zeta-five.vercel.app', 
+  origin: [
+    'https://capstone-zeta-five.vercel.app', 
+    'http://localhost:5173'
+  ],
   credentials: true, 
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
