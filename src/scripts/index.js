@@ -34,10 +34,12 @@ if (fs.existsSync(gambarPath)) {
 const specificFile = path.join(__dirname, 'gambar', 'Alas-Purwo-National-Park.jpg');
 console.log('Specific file exists:', fs.existsSync(specificFile));
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:4173', 'https://your-frontend-url.vercel.app'];
-
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:4173',
+];
 const corsOptions = {
-  origin: function (origin, callback) {
+  origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -46,7 +48,6 @@ const corsOptions = {
   },
   credentials: true,
 };
-
 try {
   await db.authenticate();
   console.log('Database connected successfully.');
