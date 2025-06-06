@@ -34,8 +34,16 @@ if (fs.existsSync(gambarPath)) {
 const specificFile = path.join(__dirname, 'gambar', 'Alas-Purwo-National-Park.jpg');
 console.log('Specific file exists:', fs.existsSync(specificFile));
 
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:4173', 'https://your-frontend-url.vercel.app'];
+
 const corsOptions = {
-  origin: true, // Mengizinkan semua origin
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 };
 
