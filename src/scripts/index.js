@@ -43,7 +43,12 @@ try {
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({origin: '*'}));
+app.use(cors({
+  origin: 'https://capstone-zeta-five.vercel.app', 
+  credentials: true, 
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 app.use('/gambar', (req, res, next) => {
   console.log('Static file requested:', req.url);
