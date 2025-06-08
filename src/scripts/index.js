@@ -46,7 +46,9 @@ app.use(express.json());
 app.use(cors({
   origin: [
     'https://capstone-zeta-five.vercel.app', 
-    'http://localhost:5173'
+    'http://localhost:5173',
+    'http://127.0.0.1:5000/recommend',
+    'http://127.0.0.1:5000'
   ],
   credentials: true, 
   methods: ['GET', 'POST', 'DELETE','OPTIONS'],

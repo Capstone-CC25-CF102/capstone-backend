@@ -14,8 +14,19 @@ export const getUsers = async (req, res) => {
 }
 
 export const Register = async (req, res) => {
-  const { name, email, password, confpassword } = req.body;
+  const { name, email, password, confpassword, termsAccepted } = req.body;
   if (password !== confpassword) return res.status(400).json({ msg: "Password dan Confirm Password tidak sama!" });
+  const existingName = await Users.findOne({ where: { name } });
+  if (existingName) {
+    return res.status(400).json({ msg: "Nama sudah dipakai!" });
+  }
+  const existingEmail = await Users.findOne({ where: { email } });
+  if (existingEmail) {
+    return res.status(400).json({ msg: "Email sudah dipakai!" });
+  }
+  if (!termsAccepted) {
+    return res.status(400).json({ msg: "Silakan setujui Terms & Conditions!" });
+  }
   const salt = await bcrypt.genSalt();
   const hashPassword = await bcrypt.hash(password, salt);
   try {
