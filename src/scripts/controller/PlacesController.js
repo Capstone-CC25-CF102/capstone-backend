@@ -60,7 +60,7 @@ export const getPlaces = async (req, res) => {
 
       const placesWithImageUrls = places.map((place) => ({
         ...place.toJSON(),
-        gambar: place.gambar ? `http://localhost:5000/gambar/${place.gambar}` : null,
+        gambar: place.gambar ? `https://capstone-backend-nvhm.vercel.app/gambar/${place.gambar}` : null,
       }));
 
       return res.status(200).json(placesWithImageUrls);
@@ -83,7 +83,7 @@ export const getPlaceById = async (req, res) => {
     }
     const placeWithImageUrl = {
       ...place.toJSON(),
-      gambar: place.gambar ? `http://localhost:5000/gambar/${place.gambar}` : null,
+      gambar: place.gambar ? `https://capstone-backend-nvhm.vercel.app/gambar/${place.gambar}` : null,
     };
 
     return res.status(200).json(placeWithImageUrl);
