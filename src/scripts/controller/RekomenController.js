@@ -1,4 +1,6 @@
 import axios from 'axios';
+import dotenv from "dotenv";
+dotenv.config();
 
 export const getRecommendations = async (req, res) => {
   try {
@@ -8,7 +10,7 @@ export const getRecommendations = async (req, res) => {
       return res.status(400).json({ error: 'Provinsi, deskripsi, dan selected_labels (array) diperlukan.' });
     }
 
-    const mlServiceUrl = 'http://127.0.0.1:5000/recommend';
+    const mlServiceUrl = `${process.env.ML_API_SERVICE}/recommend`;
     const response = await axios.post(mlServiceUrl, {
       province,
       selected_labels,

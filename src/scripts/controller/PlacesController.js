@@ -1,6 +1,10 @@
 import Places from '../models/PlaceModel.js';
 import axios from 'axios';
 import { Op } from 'sequelize';
+import dotenv from "dotenv";
+dotenv.config();
+
+
 
 export const getPlaces = async (req, res) => {
   try {
@@ -8,7 +12,7 @@ export const getPlaces = async (req, res) => {
     console.log('Received query params:', { province, notId, description });
 
     if (description) {
-      const mlServiceUrl = 'http://127.0.0.1:5000/recommend';
+      const mlServiceUrl = `${process.env.ML_API_SERVICE}/recommend`;
       try {
         const response = await axios.post(mlServiceUrl, {
           province: province || '',
@@ -60,7 +64,7 @@ export const getPlaces = async (req, res) => {
 
       const placesWithImageUrls = places.map((place) => ({
         ...place.toJSON(),
-        gambar: place.gambar ? `https://capstone-backend-nvhm.vercel.app/gambar/${place.gambar}` : null,
+        gambar: place.gambar ? `${process.env.BE_API_SERVICE}/gambar/${place.gambar}` : null,
       }));
 
       return res.status(200).json(placesWithImageUrls);
@@ -83,7 +87,7 @@ export const getPlaceById = async (req, res) => {
     }
     const placeWithImageUrl = {
       ...place.toJSON(),
-      gambar: place.gambar ? `https://capstone-backend-nvhm.vercel.app/gambar/${place.gambar}` : null,
+      gambar: place.gambar ? `${process.env.BE_API_SERVICE}/gambar/${place.gambar}` : null,
     };
 
     return res.status(200).json(placeWithImageUrl);

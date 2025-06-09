@@ -1,6 +1,9 @@
 import Wishlist from '../models/WishlistModel.js';
 import Places from '../models/PlaceModel.js';
 import Users from '../models/UserModel.js';
+import dotenv from "dotenv";
+dotenv.config();
+
 
 export const getUserWishlist = async (req, res) => {
   const userEmail = req.user;
@@ -19,7 +22,7 @@ export const getUserWishlist = async (req, res) => {
 
     const formatted = wishlists.map((item) => ({
       ...item.place.toJSON(),
-      gambar: item.place.gambar ? `http://localhost:5000/gambar/${item.place.gambar}` : null
+      gambar: item.place.gambar ? `${process.env.BE_API_SERVICE}/gambar/${item.place.gambar}` : null
     }));
 
     res.json(formatted);
