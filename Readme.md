@@ -25,20 +25,6 @@ To run the documentation locally:
 - `DELETE /whislist/:placeId` -Remove from wishlist
 
 
-## Running the API
-
-To run the API in development mode:
-
-```bash
-npm run start:dev
-```
-
-To run the API in production mode:
-
-```bash
-npm run start:prod
-```
-
 In your `.env` file:
 
 ```
