@@ -7,12 +7,6 @@ This is the API for the Capstone project. This is the API for the Capstone proje
 
 To run the documentation locally:
 
-```bash
-npm run docs
-```
-
-Then open (http://localhost:5000) in your browser.
-
 ## API Endpoints
 
 ### Public Endpoints
@@ -77,5 +71,10 @@ npm run start:dev
 ```bash
 
 npm run start:prod
+
+```
+### To run the open in your browser :
+```bash
+http://localhost:5000
 
 ```
