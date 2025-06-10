@@ -56,7 +56,7 @@ ML_API_SERVICE=your_ml_api
 BE_API_SERVICE=your_be_api
 ```
 
-### Menjalankan Project
+### Running a Project
 
 #### Development Mode
 
